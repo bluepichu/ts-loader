@@ -235,7 +235,7 @@ function successfulTypeScriptInstance(
     otherFiles,
     languageService: null,
     version: 0,
-    transformers: getCustomTransformers(),
+    transformers: {}, // MODIFIED HERE -- removing this and filling it in later
     dependencyGraph: {},
     reverseDependencyGraph: {},
     modifiedFiles: null,
@@ -267,7 +267,10 @@ function successfulTypeScriptInstance(
     instance.program = instance.watchOfFilesAndCompilerOptions
       .getProgram()
       .getProgram();
+    instance.transformers = getCustomTransformers(instance.program); // MODIFIED HERE -- filling in the transformers
   } else {
+    instance.transformers = getCustomTransformers(undefined); // MODIFIED HERE -- filling in the transformers
+
     const servicesHost = makeServicesHost(
       scriptRegex,
       log,

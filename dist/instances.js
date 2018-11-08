@@ -134,7 +134,7 @@ function successfulTypeScriptInstance(loaderOptions, loader, log, colors, compil
         otherFiles,
         languageService: null,
         version: 0,
-        transformers: getCustomTransformers(),
+        transformers: {},
         dependencyGraph: {},
         reverseDependencyGraph: {},
         modifiedFiles: null,
@@ -151,8 +151,10 @@ function successfulTypeScriptInstance(loaderOptions, loader, log, colors, compil
         instance.program = instance.watchOfFilesAndCompilerOptions
             .getProgram()
             .getProgram();
+        instance.transformers = getCustomTransformers(instance.program); // MODIFIED HERE -- filling in the transformers
     }
     else {
+        instance.transformers = getCustomTransformers(undefined); // MODIFIED HERE -- filling in the transformers
         const servicesHost = servicesHost_1.makeServicesHost(scriptRegex, log, loader, instance, loaderOptions.experimentalFileCaching, configParseResult.projectReferences);
         instance.languageService = compiler.createLanguageService(servicesHost.servicesHost, compiler.createDocumentRegistry());
         if (servicesHost.clearCache !== null) {
