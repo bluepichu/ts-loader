@@ -188,7 +188,7 @@ function successfulTypeScriptInstance(
       program,
       dependencyGraph: {},
       reverseDependencyGraph: {},
-      transformers: getCustomTransformers(),
+      transformers: getCustomTransformers(program), // MODIFIED HERE -- give the transformers the program instance so they can, e.g., get the typechecker
       colors
     };
 
